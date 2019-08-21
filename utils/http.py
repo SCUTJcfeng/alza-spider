@@ -23,7 +23,7 @@ if platform.system() == "Windows":
 class Http:
 
     @staticmethod
-    def get(url):
+    def get_for_txt(url):
         try:
             return requests.get(url, timeout=10).text
         except:
@@ -31,7 +31,7 @@ class Http:
         return ''
 
     @staticmethod
-    def post(url, data, headers=None):
+    def post_for_json(url, data, headers=None):
         try:
             return requests.post(url, data=json.dumps(data), headers=headers, timeout=10).json()
         except:

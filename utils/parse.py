@@ -27,7 +27,7 @@ class HtmlParse:
 
             browsing_link_tag = item.find('a', class_='bt1 browsinglink')
             name = browsing_link_tag.string
-            link = 'https://www.alza.cz' + browsing_link_tag['href']
+            link = 'https://www.alza.cz/EN' + browsing_link_tag['href']
 
             span_b32_tag = item.find('span', class_='b32')
             now_price = span_b32_tag.string.replace(',', '').replace('-', '').replace('\xa0', '')
@@ -40,3 +40,25 @@ class HtmlParse:
                 'date': date
             })
         return result_list
+
+    @staticmethod
+    def parse_alza_detail(html_txt):
+        soup = HtmlParse.use_lxml(html_txt)
+        div_dynamic_promo_tag = soup.find('div', class_='dynamicPromo')
+        msgs_str = div_dynamic_promo_tag['data-msgs']
+        if msgs_str:
+            msg_list = msgs_str.split(';')
+            today_purchased = this_week_purchased = now_viewing_customers_count = 0
+            for msg in msg_list:
+                if msg.find('today') != -1:
+                    today_purchased = re.findall('Purchased by (.*) customers today', msg)[0]
+                elif msg.find('this week') != -1:
+                    this_week_purchased = re.findall('Purchased by (.*) customers this week', msg)[0]
+                elif msg.find('viewing') != -1:
+                    now_viewing_customers_count = re.findall('(.*) Customers are viewing this Item', msg)[0]
+            return {
+                'today_purchased': int(today_purchased),
+                'this_week_purchased': int(this_week_purchased),
+                'now_viewing_customers_count': int(now_viewing_customers_count)
+            }
+        return {}
