@@ -6,6 +6,8 @@ File Created: 2019-08-21 15:56:29
 Last Modified: 2019-08-21 17:08:21
 '''
 
+import time
+import datetime
 from spider import AlzaSpider
 from utils.file import build_file_name
 from utils.csv import write_csv
@@ -22,3 +24,9 @@ def daily_spider():
 
 if __name__ == "__main__":
     daily_spider()
+    while True:
+        print('程序运行中')
+        now = datetime.datetime.now()
+        if now.hour == 5 and now.minute == 50:
+            daily_spider()
+        time.sleep(60)
