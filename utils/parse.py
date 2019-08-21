@@ -17,14 +17,26 @@ class HtmlParse:
         return BeautifulSoup(html_txt, 'lxml')
 
     @staticmethod
-    def parse_alza_main(html_txt):
+    def parse_alza_main(html_txt, date):
         soup = HtmlParse.use_lxml(html_txt)
         best_items = soup.findAll(class_=re.compile("bestitem"))
+        result_list = []
         for item in best_items:
-            div_b1a = item.find('div', class_=re.compile('b1a')).contents[1]
-            # rank = div_b1a.contents[0]
-            # rank = item.find(class_='b1a')
-            print(item.string)
-        pass
-        # div_list = besti.find(class_)
-        # print(besti.string if besti else None)
+            div_b1a_tag = item.find('div', class_=re.compile('b1a'))
+            rank = div_b1a_tag.string.replace('\r\n', '').replace('.', '')
+
+            browsing_link_tag = item.find('a', class_='bt1 browsinglink')
+            name = browsing_link_tag.string
+            link = 'https://www.alza.cz' + browsing_link_tag['href']
+
+            span_b32_tag = item.find('span', class_='b32')
+            now_price = span_b32_tag.string.replace(',', '').replace('-', '').replace('\xa0', '')
+            print(rank, name, now_price, link)
+            result_list.append({
+                'name': name,
+                'rank': int(rank),
+                'price': float(now_price),
+                'link': link,
+                'date': date
+            })
+        return result_list

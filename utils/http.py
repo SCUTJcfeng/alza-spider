@@ -33,7 +33,7 @@ class Http:
     @staticmethod
     def post(url, data, headers=None):
         try:
-            return requests.post(url, data=json.dumps(data), headers=headers, timeout=10, verify=False).text
+            return requests.post(url, data=json.dumps(data), headers=headers, timeout=10).json()
         except:
             traceback.print_exc()
-        return ''
+        return {}
