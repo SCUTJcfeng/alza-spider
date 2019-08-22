@@ -3,7 +3,7 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 15:56:29
-Last Modified: 2019-08-21 17:08:21
+Last Modified: 2019-08-22 10:07:58
 '''
 
 import time
@@ -15,10 +15,11 @@ from utils.csv import write_csv
 
 def daily_spider():
     result_list = AlzaSpider.main_page_spider()
+    headers = ['date', 'rank', 'name', 'price', 'today_purchased',
+               'this_week_purchased', 'now_viewing_customers_count', 'link']
     for result in result_list:
         detail = AlzaSpider.detail_page_spider(result['link'])
         result.update(detail)
-        headers = ['date', 'rank', 'name', 'price', 'today_purchased', 'this_week_purchased', 'now_viewing_customers_count', 'link']
     write_csv(build_file_name(), headers, result_list)
 
 

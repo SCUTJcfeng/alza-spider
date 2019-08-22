@@ -3,7 +3,7 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 16:01:12
-Last Modified: 2019-08-21 19:16:30
+Last Modified: 2019-08-22 10:07:38
 '''
 
 import re
@@ -30,7 +30,8 @@ class HtmlParse:
             link = 'https://www.alza.cz/EN' + browsing_link_tag['href']
 
             span_b32_tag = item.find('span', class_='b32')
-            now_price = span_b32_tag.string.replace(',', '').replace('-', '').replace('\xa0', '')
+            now_price = span_b32_tag.string.replace(
+                ',', '').replace('-', '').replace('\xa0', '')
             print(rank, name, now_price, link)
             result_list.append({
                 'name': name,
@@ -51,11 +52,14 @@ class HtmlParse:
             today_purchased = this_week_purchased = now_viewing_customers_count = 0
             for msg in msg_list:
                 if msg.find('today') != -1:
-                    today_purchased = re.findall('Purchased by (.*) customers today', msg)[0]
+                    today_purchased = re.findall(
+                        'Purchased by (.*) customers today', msg)[0]
                 elif msg.find('this week') != -1:
-                    this_week_purchased = re.findall('Purchased by (.*) customers this week', msg)[0]
+                    this_week_purchased = re.findall(
+                        'Purchased by (.*) customers this week', msg)[0]
                 elif msg.find('viewing') != -1:
-                    now_viewing_customers_count = re.findall('(.*) Customers are viewing this Item', msg)[0]
+                    now_viewing_customers_count = re.findall(
+                        '(.*) Customers are viewing this Item', msg)[0]
             return {
                 'today_purchased': int(today_purchased),
                 'this_week_purchased': int(this_week_purchased),
