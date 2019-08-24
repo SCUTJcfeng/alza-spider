@@ -4,12 +4,11 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 23:09:12
-Last Modified: 2019-08-21 23:48:01
+Last Modified: 2019-08-24 17:52:18
 '''
 
 from utils.http import Http
 from utils.parse import HtmlParse
-from utils.date import today_date
 
 
 class AlzaSpider:
@@ -33,8 +32,7 @@ class AlzaSpider:
         }
         html_data = Http.post_for_json(url, form_data, headers)
         if html_data and 'd' in html_data:
-            date = today_date()
-            return HtmlParse.parse_alza_main(html_data['d'], date)
+            return HtmlParse.parse_alza_main(html_data['d'])
         return []
 
     @staticmethod

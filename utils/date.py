@@ -3,11 +3,12 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 23:01:07
-Last Modified: 2019-08-22 09:27:25
+Last Modified: 2019-08-24 17:51:42
 '''
 
 import datetime
 
 
-def today_date():
-    return datetime.datetime.now().strftime('%Y-%m-%d')
+def last_date():
+    lastday = datetime.datetime.now() + datetime.timedelta(days=-1)
+    return lastday.strftime('%Y-%m-%d')

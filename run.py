@@ -3,7 +3,7 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 15:56:29
-Last Modified: 2019-08-23 10:27:28
+Last Modified: 2019-08-24 17:54:50
 '''
 
 import time
@@ -12,11 +12,12 @@ from spider import AlzaSpider
 from utils.file import build_file_name
 from utils.csv import write_csv
 from utils.mail import Email
-from utils.date import today_date
+from utils.date import last_date
 from config import TO_ADDRESS
 
 
 def daily_spider():
+    last_day = last_date()
     # spider
     result_list = AlzaSpider.main_page_spider()
     headers = ['date', 'rank', 'name', 'price', 'today_purchased',
@@ -24,12 +25,13 @@ def daily_spider():
     for result in result_list:
         detail = AlzaSpider.detail_page_spider(result['link'])
         result.update(detail)
+        result.update({'date': last_day})
     # 本地csv保存
     file_name = build_file_name()
     write_csv(file_name, headers, result_list)
     # 邮件发送
     msg = Email.build_msg(
-        TO_ADDRESS, f"{today_date()} Alza 数据定时发送", "", file_name)
+        TO_ADDRESS, f"{last_day} Alza 数据定时发送", "", file_name)
     Email.send_email(TO_ADDRESS, msg)
 
 

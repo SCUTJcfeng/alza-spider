@@ -3,7 +3,7 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 16:01:12
-Last Modified: 2019-08-22 10:07:38
+Last Modified: 2019-08-24 18:07:57
 '''
 
 import re
@@ -17,7 +17,9 @@ class HtmlParse:
         return BeautifulSoup(html_txt, 'lxml')
 
     @staticmethod
-    def parse_alza_main(html_txt, date):
+    def parse_alza_main(html_txt):
+        if html_txt == '':
+            return []
         soup = HtmlParse.use_lxml(html_txt)
         best_items = soup.findAll(class_=re.compile("bestitem"))
         result_list = []
@@ -37,13 +39,14 @@ class HtmlParse:
                 'name': name,
                 'rank': int(rank),
                 'price': float(now_price),
-                'link': link,
-                'date': date
+                'link': link
             })
         return result_list
 
     @staticmethod
     def parse_alza_detail(html_txt):
+        if html_txt == '':
+            return {}
         soup = HtmlParse.use_lxml(html_txt)
         div_dynamic_promo_tag = soup.find('div', class_='dynamicPromo')
         msgs_str = div_dynamic_promo_tag['data-msgs']
