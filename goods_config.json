@@ -1,0 +1,36 @@
+{
+    "datalist": [
+        {
+            "category": "Routers",
+            "idCategory": 18843092
+        },
+        {
+            "category": "Mesh_WiFi",
+            "idCategory": 18866888
+        },
+        {
+            "category": "LTE_3G_Modems",
+            "idCategory": 18851781
+        },
+        {
+            "category": "Adsl_Vdsl_Modems",
+            "idCategory": 18848451
+        },
+        {
+            "category": "Network_Cards_for_Outlets",
+            "idCategory": 18851699
+        },
+        {
+            "category": "WiFi_Extenders",
+            "idCategory": 18854593
+        },
+        {
+            "category": "Switches_for_Home_Use",
+            "idCategory": 18853680
+        },
+        {
+            "category": "Switches_for_Business_Use",
+            "idCategory": 18853681
+        }
+    ]
+}

@@ -4,7 +4,7 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 23:09:12
-Last Modified: 2019-08-24 17:52:18
+Last Modified: 2019-09-25 20:40:44
 '''
 
 from utils.http import Http
@@ -14,11 +14,11 @@ from utils.parse import HtmlParse
 class AlzaSpider:
 
     @staticmethod
-    def main_page_spider():
+    def main_page_spider(category_id):
         url = 'https://www.alza.cz/Services/EShopService.svc/GetBestsellers'
         form_data = {
             'categoryType': 1,
-            'idCategory': 18843092,
+            'idCategory': category_id,
             'idPrefix': 0,
             'leasingCatId': None,
             'maxPrice': -1,

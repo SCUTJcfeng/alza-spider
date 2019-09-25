@@ -3,7 +3,7 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 22:44:01
-Last Modified: 2019-08-22 09:26:45
+Last Modified: 2019-09-25 21:07:28
 '''
 
 import os
@@ -18,9 +18,9 @@ def _create_folder():
     os.mkdir(file_path)
 
 
-def build_file_name():
+def build_file_name(category):
     _create_folder()
-    return os.path.join(file_path, f'alza_result.csv')
+    return os.path.join(file_path, f'Alza_{category.lower()}_result.csv')
 
 
 def check_if_exist(file_name):

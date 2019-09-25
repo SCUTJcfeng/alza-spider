@@ -3,7 +3,7 @@
 '''
 Author: jc feng
 File Created: 2019-08-23 09:21:54
-Last Modified: 2019-08-23 10:19:28
+Last Modified: 2019-09-25 20:49:21
 '''
 
 import os
@@ -25,13 +25,14 @@ class Email:
             print('Email 发送成功')
 
     @staticmethod
-    def build_msg(to_email, subject, body, file_path):
+    def build_msg(to_email, subject, body, files):
         msg = MIMEMultipart()
         msg['From'] = USER_EMAIL
         msg['To'] = to_email
         msg['Subject'] = subject
         msg.attach(MIMEText(body))
-        msg.attach(Email.load_file(file_path))
+        for file_path in files:
+            msg.attach(Email.load_file(file_path))
         return msg.as_string()
 
     @staticmethod
