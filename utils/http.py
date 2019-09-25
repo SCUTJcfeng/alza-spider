@@ -3,7 +3,7 @@
 '''
 Author: jc feng
 File Created: 2019-08-21 15:58:22
-Last Modified: 2019-08-21 17:08:26
+Last Modified: 2019-09-25 21:41:19
 '''
 
 import json
@@ -21,7 +21,6 @@ if platform.system() == "Windows":
 
 
 class Http:
-
     @staticmethod
     def get_for_txt(url):
         try:
@@ -31,9 +30,9 @@ class Http:
         return ''
 
     @staticmethod
-    def post_for_json(url, data, headers=None):
+    def post_for_json(url, data, headers=None, cookies=None):
         try:
-            return requests.post(url, data=json.dumps(data), headers=headers, timeout=10).json()
+            return requests.post(url, data=json.dumps(data), headers=headers, cookies=cookies, timeout=10).json()
         except:
             traceback.print_exc()
         return {}
